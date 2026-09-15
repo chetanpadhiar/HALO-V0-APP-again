@@ -159,7 +159,7 @@ const server = createServer(async (req, res) => {
     return;
   }
 
-  const authorizeMatch = url.pathname.match(/^\/auth\/google\/authorize$/);
+ const authorizeMatch = url.pathname.match(/^\/auth\/(google)\/authorize$/);
   if (authorizeMatch && req.method === "GET") {
     const provider = PROVIDERS[authorizeMatch[1]];
     const email = url.searchParams.get("email") || "";
@@ -184,7 +184,7 @@ const server = createServer(async (req, res) => {
     return;
   }
 
-  const callbackMatch = url.pathname.match(/^\/auth\/google\/callback$/);
+ const callbackMatch = url.pathname.match(/^\/auth\/(google)\/callback$/);
   if (callbackMatch && req.method === "GET") {
     const provider = PROVIDERS[callbackMatch[1]];
     const code = url.searchParams.get("code");
