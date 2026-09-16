@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+:root{
+  --accent:#e8001d;
+  --accent-dim:#8f0012;
+  --bg-void:#040a12;
+  --bg-frame:#091326;
+  --panel:#f5f3ee;
+  --rule:#d0ccc4;
+  --cyan:#00f0ff;
+  --cyan-bright:#00d2be;
+  --ink:#151312;
+  --ink-soft:#4b4740;
+  --safe:#1f8f4e;
+  --warn:#c47a00;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg-void);color:var(--panel);font-family:'VT323',monospace;font-size:18px;}
+#app{max-width:1200px;margin:0 auto;padding:20px;}
+
+.brand{display:flex;align-items:center;gap:14px;border:3px solid var(--accent);background:var(--bg-frame);padding:14px 18px;margin-bottom:16px;}
+.brand h1{font-family:'Press Start 2P',monospace;font-size:20px;color:var(--cyan);margin:0;}
+.brand p{margin:2px 0 0;color:var(--rule);font-size:15px;}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+.pill{border:2px solid var(--safe);color:var(--safe);padding:4px 10px;font-size:14px;}
+.pill.bad{border-color:var(--warn);color:var(--warn);}
+
+.nav{display:flex;gap:8px;border-bottom:2px solid var(--bg-frame);margin-bottom:16px;flex-wrap:wrap;}
+.nav button{background:none;border:none;color:var(--rule);font-family:'VT323',monospace;font-size:18px;padding:10px 14px;cursor:pointer;border-bottom:3px solid transparent;}
+.nav button.active{color:var(--cyan);border-bottom-color:var(--cyan);}
+
+.panel{background:var(--panel);color:var(--ink);border:3px solid var(--ink);padding:20px;margin-bottom:16px;}
+.panel h2{font-family:'Press Start 2P',monospace;font-size:15px;margin:0 0 14px;}
+.panel p{color:var(--ink-soft);}
+
+.center-wrap{max-width:520px;margin:60px auto;text-align:center;}
+.center-wrap h1{font-family:'Press Start 2P',monospace;font-size:26px;color:#fff;}
+.center-wrap .tagline{color:var(--cyan);margin-bottom:30px;}
+
+.role-cards{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+.role-card{flex:1;min-width:220px;background:var(--panel);color:var(--ink);border:3px solid var(--ink);padding:22px;cursor:pointer;text-align:left;box-shadow:5px 5px 0 var(--cyan);}
+.role-card:hover{box-shadow:5px 5px 0 var(--accent);}
+.role-card h3{font-family:'Press Start 2P',monospace;font-size:14px;margin:0 0 10px;}
+
+input[type=email], input[type=text]{width:100%;padding:12px;font-family:'VT323',monospace;font-size:18px;border:2px solid var(--ink);margin-bottom:12px;}
+button.btn{width:100%;padding:12px;font-family:'VT323',monospace;font-size:18px;border:3px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;box-shadow:4px 4px 0 var(--ink);margin-bottom:10px;}
+button.btn:active{transform:translate(4px,4px);box-shadow:none;}
+button.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent-dim);}
+button.btn.link{border:none;box-shadow:none;color:var(--cyan);background:none;}
+
+.note{font-size:14px;color:var(--warn);border:2px dashed var(--warn);padding:10px;margin:10px 0;background:#fff8ec;}
+.note.info{color:var(--ink-soft);border-color:var(--rule);background:#fff;}
+
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:14px;}
+.metric-card{border:2px solid var(--ink);padding:14px;}
+.metric-card .m-label{font-size:13px;color:var(--ink-soft);text-transform:uppercase;}
+.metric-card .m-value{font-family:'Press Start 2P',monospace;font-size:20px;margin-top:6px;}
+
+.row-list{border-top:2px solid var(--ink);}
+.row-item{display:flex;justify-content:space-between;align-items:center;padding:12px 4px;border-bottom:1px solid var(--rule);cursor:pointer;gap:10px;}
+.row-item:hover{background:#efece3;}
+.badge{font-family:'Press Start 2P',monospace;font-size:10px;padding:5px 8px;color:#fff;white-space:nowrap;}
+.badge.safe{background:var(--safe);}
+.badge.attention{background:var(--warn);}
+.badge.high-risk{background:var(--accent);}
+
+.reasons li{margin-bottom:6px;}
+details summary{cursor:pointer;color:var(--cyan-bright);margin-top:14px;}
+pre{white-space:pre-wrap;background:#fff;border:1px solid var(--rule);padding:10px;font-size:13px;}
+
+/* ---------------------------------------------------------------- */
+/* Ambient background: the "world around" the HALO interface. Fixed, */
+/* behind everything (panels are opaque and sit on top unaffected). */
+/* Pure CSS/SVG -- no canvas, no library, negligible performance cost.*/
+.halo-bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:radial-gradient(ellipse at 30% 20%, #0a1830 0%, var(--bg-void) 55%, #020509 100%);}
+.halo-bg-grid{position:absolute;inset:-2px;
+  background-image:
+    linear-gradient(rgba(0,240,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,240,255,0.05) 1px, transparent 1px);
+  background-size:46px 46px;
+  mask-image:radial-gradient(ellipse at 50% 30%, black 0%, transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 30%, black 0%, transparent 75%);
+}
+.halo-bg-sweep{position:absolute;inset:0;
+  background:linear-gradient(115deg, transparent 40%, rgba(0,240,255,0.035) 48%, rgba(0,240,255,0.06) 50%, rgba(0,240,255,0.035) 52%, transparent 60%);
+  background-size:300% 300%;
+  animation:halo-sweep 14s linear infinite;
+}
+@keyframes halo-sweep{0%{background-position:0% 0%;}100%{background-position:120% 120%;}}
+.halo-bg-nodes{position:absolute;inset:0;width:100%;height:100%;opacity:0.55;}
+.hn-line{stroke:rgba(0,240,255,0.16);stroke-width:1;}
+.hn-dot{fill:var(--cyan);opacity:0.6;animation:halo-node-pulse 3.4s ease-in-out infinite;}
+.hn-dot-delay1{animation-delay:1.1s;}
+.hn-dot-delay2{animation-delay:2.2s;}
+@keyframes halo-node-pulse{0%,100%{opacity:0.35;r:2.2;}50%{opacity:0.95;r:3.6;}}
+#app{position:relative;z-index:1;}
+@media (prefers-reduced-motion: reduce){
+  .halo-bg-sweep,.hn-dot{animation:none;}
+}
+
+/* ---------------------------------------------------------------- */
+/* Boot animation -- 5 phases, ~2.8s total, orchestrated in app.js.  */
+.halo-boot{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;}
+.halo-boot-dots{display:flex;gap:14px;}
+.halo-boot-dot{width:10px;height:10px;background:var(--cyan);border-radius:1px;opacity:0;animation:halo-dot-in 0.4s ease-out forwards;box-shadow:0 0 8px var(--cyan);}
+@keyframes halo-dot-in{0%{opacity:0;transform:scale(0.3);}60%{opacity:1;transform:scale(1.2);}100%{opacity:0.85;transform:scale(1);}}
+
+.halo-logo-assemble{position:relative;overflow:hidden;}
+.halo-logo-assemble h1{margin:0;animation:halo-logo-wipe 0.5s steps(12) forwards;}
+@keyframes halo-logo-wipe{0%{clip-path:inset(0 100% 0 0);}100%{clip-path:inset(0 0 0 0);}}
+.halo-scan-bar{position:absolute;top:0;bottom:0;width:4px;background:var(--cyan);box-shadow:0 0 14px var(--cyan);animation:halo-scan-move 0.5s linear forwards;}
+@keyframes halo-scan-move{0%{left:0;}100%{left:100%;}}
+
+.halo-core-wrap{display:flex;align-items:center;gap:22px;}
+.halo-core-ring{width:80px;height:80px;flex-shrink:0;}
+.hcr-track{fill:none;stroke:var(--bg-frame);stroke-width:3;}
+.hcr-sweep{fill:none;stroke:var(--cyan);stroke-width:3;stroke-linecap:round;stroke-dasharray:60 260;transform-origin:60px 60px;animation:halo-ring-spin 1.1s linear infinite;filter:drop-shadow(0 0 4px var(--cyan));}
+@keyframes halo-ring-spin{to{transform:rotate(360deg);}}
+
+.halo-boot-network{width:min(90vw,400px);height:auto;}
+.hbn-line{stroke:var(--cyan);stroke-width:1.5;opacity:0;stroke-dasharray:120;stroke-dashoffset:120;animation:halo-line-draw 0.4s ease-out forwards;}
+@keyframes halo-line-draw{to{opacity:0.5;stroke-dashoffset:0;}}
+.hbn-dot{fill:var(--cyan);opacity:0;animation:halo-dot-in 0.35s ease-out forwards;filter:drop-shadow(0 0 5px var(--cyan));}
+
+.halo-boot-online{animation:halo-online-flash 0.5s ease-out;text-align:center;line-height:1.4;}
+@keyframes halo-online-flash{0%{opacity:0;transform:scale(0.9);}50%{opacity:1;transform:scale(1.04);}100%{opacity:1;transform:scale(1);}}
+
+/* ---------------------------------------------------------------- */
+/* Map node pulse + click-to-highlight the matching detail row.      */
+.halo-node-halo{animation:halo-map-pulse 2.6s ease-in-out infinite;transform-origin:center;transform-box:fill-box;}
+@keyframes halo-map-pulse{0%,100%{transform:scale(1);opacity:0.14;}50%{transform:scale(1.5);opacity:0.28;}}
+.halo-map-node:hover .halo-node-halo{opacity:0.4;}
+.halo-row-flash{animation:halo-row-flash-anim 1.2s ease-out;}
+@keyframes halo-row-flash-anim{0%{background:rgba(0,240,255,0.35);}100%{background:transparent;}}
+
+/* ---------------------------------------------------------------- */
+/* Student dashboard: Inbox + Threat Radar side-by-side on wider     */
+/* screens, stacking on mobile (existing panel pattern preserved).   */
+.halo-dash-row{display:flex;gap:16px;flex-wrap:wrap;}
+.halo-dash-row .panel{margin-bottom:16px;}
+@media (max-width:640px){.halo-dash-row{flex-direction:column;}}
+
+/* HALO V0 action center / 247-email demo */
+.demo-filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.demo-filter-bar .btn{width:auto;padding:8px 10px;font-size:12px}.demo-count-line{font-size:12px;margin:8px 0;color:var(--ink-soft)}.demo-email-list{max-height:620px;overflow:auto;border-top:2px solid var(--ink)}
+.halo-modal-backdrop{position:fixed;inset:0;background:rgba(4,10,18,.82);z-index:9999;display:flex;align-items:center;justify-content:center;padding:18px}.halo-modal{position:relative;width:min(760px,96vw);max-height:90vh;overflow:auto;background:var(--cream);color:var(--ink);border:4px solid var(--ink);box-shadow:10px 10px 0 var(--accent);padding:22px}.halo-modal h2{margin-top:0}.halo-modal-close{position:absolute;right:10px;top:10px;background:var(--ink);color:var(--cream);border:0;padding:8px 12px;font-family:inherit;cursor:pointer}.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.action-card{position:relative;display:flex;flex-direction:column;gap:8px;min-height:92px;text-align:left;background:var(--cream);color:var(--ink);border:3px solid var(--ink);padding:14px 16px 13px;box-shadow:5px 5px 0 var(--ink);font-family:inherit;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,background .12s ease}.action-card:nth-child(-n+2){grid-column:1 / -1;min-height:82px}.action-card:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);background:#fff}.action-card:active{transform:translate(4px,4px);box-shadow:1px 1px 0 var(--ink)}.action-head{display:flex;align-items:center;gap:10px;width:100%;font-family:'Press Start 2P',monospace}.action-num{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:28px;padding:0 5px;background:var(--ink);color:var(--cream);font-size:9px;line-height:1}.action-title{font-size:11px;line-height:1.25;letter-spacing:.1px}.action-arrow{margin-left:auto;font-size:18px;color:var(--accent);line-height:1}.action-card>span:not(.action-head){font-family:'VT323',monospace;font-size:18px;line-height:1.05;color:var(--ink-soft);padding-left:44px}.action-card:nth-child(-n+2)>span:not(.action-head){padding-left:44px}.action-card:hover .action-arrow{transform:translateX(4px)}.halo-modal .action-card{width:100%}@media(max-width:700px){.action-grid{grid-template-columns:1fr}.action-card:nth-child(-n+2){grid-column:auto}.halo-modal{padding:16px}.action-card{min-height:88px}.action-title{font-size:10px}}
+.demo-filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.demo-filter-bar .btn{width:auto;padding:8px 10px;font-size:12px}.demo-count-line{font-size:12px;margin:8px 0;color:var(--ink-soft)}.demo-email-list{max-height:620px;overflow:auto;border-top:2px solid var(--ink)}
+.halo-modal-backdrop{position:fixed;inset:0;background:rgba(4,10,18,.82);z-index:9999;display:flex;align-items:center;justify-content:center;padding:18px}.halo-modal{position:relative;width:min(760px,96vw);max-height:90vh;overflow:auto;background:var(--cream);color:var(--ink);border:4px solid var(--ink);box-shadow:10px 10px 0 var(--accent);padding:22px}.halo-modal h2{margin-top:0}.halo-modal-close{position:absolute;right:10px;top:10px;background:var(--ink);color:var(--cream);border:0;padding:8px 12px;font-family:inherit;cursor:pointer}.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.action-card{position:relative;display:flex;flex-direction:column;gap:8px;min-height:92px;text-align:left;background:var(--cream);color:var(--ink);border:3px solid var(--ink);padding:14px 16px 13px;box-shadow:5px 5px 0 var(--ink);font-family:inherit;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,background .12s ease}.action-card:nth-child(-n+2){grid-column:1 / -1;min-height:82px}.action-card:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);background:#fff}.action-card:active{transform:translate(4px,4px);box-shadow:1px 1px 0 var(--ink)}.action-head{display:flex;align-items:center;gap:10px;width:100%;font-family:'Press Start 2P',monospace}.action-num{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:28px;padding:0 5px;background:var(--ink);color:var(--cream);font-size:9px;line-height:1}.action-title{font-size:11px;line-height:1.25;letter-spacing:.1px}.action-arrow{margin-left:auto;font-size:18px;color:var(--accent);line-height:1}.action-card>span:not(.action-head){font-family:'VT323',monospace;font-size:18px;line-height:1.05;color:var(--ink-soft);padding-left:44px}.action-card:nth-child(-n+2)>span:not(.action-head){padding-left:44px}.action-card:hover .action-arrow{transform:translateX(4px)}.halo-modal .action-card{width:100%}@media(max-width:700px){.action-grid{grid-template-columns:1fr}.action-card:nth-child(-n+2){grid-column:auto}.halo-modal{padding:16px}.action-card{min-height:88px}.action-title{font-size:10px}}
+
+/* ================================================================
+   SIH FINAL ACTION SYSTEM
+   All actionable controls share the same HALO TAKE ACTION language.
+   ================================================================ */
+:root{--action-red:#e8001d;--action-red-dark:#8f0012;--action-shadow:#151312;}
+
+/* Primary buttons = the exact TAKE ACTION visual language */
+button.btn:not(.link),
+.halo-modal button.btn:not(.link){
+  appearance:none;
+  -webkit-appearance:none;
+  background:var(--action-red);
+  color:#fff;
+  border:4px solid var(--action-red-dark);
+  border-right-color:var(--action-shadow);
+  border-bottom-color:var(--action-shadow);
+  box-shadow:7px 7px 0 var(--action-shadow);
+  border-radius:0;
+  font-family:'Press Start 2P',monospace;
+  font-size:11px;
+  line-height:1.35;
+  letter-spacing:.2px;
+  min-height:52px;
+  padding:13px 16px;
+  text-transform:uppercase;
+  transition:transform .1s steps(2),box-shadow .1s steps(2),filter .1s linear;
+}
+button.btn:not(.link):hover,
+.halo-modal button.btn:not(.link):hover{filter:brightness(1.08);transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--action-shadow);}
+button.btn:not(.link):active,
+.halo-modal button.btn:not(.link):active{transform:translate(5px,5px);box-shadow:2px 2px 0 var(--action-shadow);}
+button.btn.primary:not(.link){background:var(--action-red);color:#fff;border-color:var(--action-red-dark);border-right-color:var(--action-shadow);border-bottom-color:var(--action-shadow);}
+
+/* Action cards: cream container + a RED TAKE-ACTION-style button face */
+.action-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px;}
+.action-card{
+  appearance:none;-webkit-appearance:none;
+  width:100%;min-width:0;min-height:148px;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:0;
+  text-align:left;cursor:pointer;
+  background:var(--cream);color:var(--ink);
+  border:4px solid var(--ink);
+  border-radius:0;
+  padding:14px;
+  box-shadow:6px 6px 0 var(--ink);
+  font-family:'VT323',monospace;
+  transition:transform .1s steps(2),box-shadow .1s steps(2),background .1s linear;
+}
+.action-card:nth-child(-n+2){grid-column:auto;min-height:148px;}
+.action-card:hover{background:#fff;transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--ink);}
+.action-card:active{transform:translate(5px,5px);box-shadow:2px 2px 0 var(--ink);}
+.action-head{
+  width:100%;min-height:58px;
+  display:flex;align-items:center;gap:10px;
+  background:var(--action-red);
+  color:#fff;
+  border:4px solid var(--action-red-dark);
+  border-right-color:var(--action-shadow);
+  border-bottom-color:var(--action-shadow);
+  box-shadow:4px 4px 0 var(--action-shadow);
+  padding:10px 12px;
+  font-family:'Press Start 2P',monospace;
+}
+.action-num{
+  flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
+  min-width:40px;height:32px;padding:0 5px;
+  background:var(--action-shadow);color:var(--cream);
+  border:2px solid var(--cream);
+  font-family:'Press Start 2P',monospace;font-size:9px;line-height:1;
+}
+.action-title{font-family:'Press Start 2P',monospace;font-size:11px;line-height:1.3;letter-spacing:0;color:#fff;}
+.action-arrow{margin-left:auto;flex:0 0 auto;font-family:'VT323',monospace;font-size:27px;line-height:1;color:#fff;}
+.action-card>span:not(.action-head){
+  display:block;
+  padding:15px 6px 3px 4px;
+  font-family:'VT323',monospace;
+  font-size:19px;line-height:1.08;color:var(--ink-soft);
+}
+.action-card:hover .action-arrow{transform:translateX(5px);}
+
+/* Needs Attention / Looks Safe use exactly the same action treatment. */
+.halo-modal .action-grid .action-card{width:100%;}
+
+/* Institution controls use the same red hard-shadow language. */
+.panel>.btn:not(.link),
+.panel button.btn:not(.link),
+.row-item>.btn:not(.link){
+  width:auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  margin:10px 8px 4px 0;
+}
+
+/* Dashboard navigation controls are still buttons, but now feel like HALO controls. */
+.demo-filter-bar .btn:not(.link){width:auto!important;min-height:42px;padding:10px 12px;font-size:10px;margin:0;}
+
+/* Modal close stays compact but matches the hard-edged system. */
+.halo-modal-close{
+  appearance:none;-webkit-appearance:none;
+  background:var(--action-red)!important;color:#fff!important;
+  border:3px solid var(--action-red-dark)!important;
+  box-shadow:4px 4px 0 var(--action-shadow)!important;
+  border-radius:0!important;
+  font-family:'Press Start 2P',monospace!important;
+  font-size:10px!important;padding:7px 9px!important;
+}
+.halo-modal-close:active{transform:translate(4px,4px);box-shadow:none!important;}
+
+/* Status/response actions on institution investigation pages. */
+.institution-action-grid,.response-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px;}
+.institution-action-grid .btn,.response-actions .btn{width:100%!important;margin:0!important;}
+
+@media(max-width:760px){
+  .action-grid,.institution-action-grid,.response-actions{grid-template-columns:1fr;}
+  .action-card:nth-child(-n+2){grid-column:auto;}
+  .action-card{min-height:132px;}
+  .action-title{font-size:10px;}
+}
