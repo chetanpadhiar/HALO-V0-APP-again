@@ -164,7 +164,7 @@ const server = createServer(async (req, res) => {
     const provider = PROVIDERS[authorizeMatch[1]];
     const email = url.searchParams.get("email") || "";
     const role = url.searchParams.get("role") === "institution" ? "institution" : "student";
-    const redirectBase = process.env.OAUTH_REDIRECT_BASE_URL || url.origin;
+    167 const redirectBase = process.env.OAUTH_REDIRECT_BASE_URL || "https://halo-v0-five.vercel.app";
     const redirectUri = `${redirectBase}/auth/${provider.name}/callback`;
     if (!provider.isConfigured()) {
       sendJson(req, res, 501, {
@@ -189,7 +189,7 @@ const server = createServer(async (req, res) => {
     const provider = PROVIDERS[callbackMatch[1]];
     const code = url.searchParams.get("code");
     const oauthError = url.searchParams.get("error");
-    const redirectBase = process.env.OAUTH_REDIRECT_BASE_URL || url.origin;
+    192 const redirectBase = process.env.OAUTH_REDIRECT_BASE_URL || "https://halo-v0-five.vercel.app";
     const redirectUri = `${redirectBase}/auth/${provider.name}/callback`;
     if (oauthError || !code) {
       sendJson(req, res, 400, { error: { code: "OAUTH_CANCELLED_OR_FAILED", message: oauthError || "No authorization code returned." } });
